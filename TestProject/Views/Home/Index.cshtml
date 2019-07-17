@@ -1,0 +1,141 @@
+﻿@model TestProject.BAL.ViewModels.OrdersListViewModel
+@{
+	ViewData["Title"] = "Home page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<form method="get" enctype="multipart/form-data" asp-controller="Home" asp-action="Search">
+
+		<div class="col-md-3">
+			<label asp-for="SearchLine"></label>
+			<input asp-for="SearchLine" type="text" />
+			<span asp-validation-for="SearchLine" class="text-danger"></span>
+		</div>
+		<div class="col-md-4">
+			<div class="col-md-10">
+				<input type="submit" value="Search" />
+			</div>
+		</div>
+	</form>
+</div>
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="SaveChanges">
+	@for (var i = 0; i < Model.Orders.Count; i++)
+	{
+		<input type="hidden" asp-for="Orders[i].OxId" />
+		<div class="row">
+			<h3>Order</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label asp-for="Orders[i].OxId"></label><br />
+				@Model.Orders[i].OxId
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].OrderDatetime"></label><br />
+				@Model.Orders[i].OrderDatetime.ToShortDateString()
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].InvoiceNumber"></label>
+				<input asp-for="Orders[i].InvoiceNumber" type="number" />
+				<span asp-validation-for="Orders[i].InvoiceNumber" class="text-danger"></span>
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].OrderStatus"></label><br />
+				<select asp-for="Orders[i].OrderStatus" asp-items="Model.Statuses">
+					<option selected value="@Model.Orders[i].OrderStatus"></option>
+				</select>
+				<span asp-validation-for="Orders[i].OrderStatus" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Billing Adress</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<label asp-for="Orders[i].BillingAddresses.Email"></label><br />
+				@Model.Orders[i].BillingAddresses.Email
+			</div>
+			<div class="col-md-4">
+
+				<label asp-for="Orders[i].BillingAddresses.Fullname"></label><br />
+				@Model.Orders[i].BillingAddresses.Fullname
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label asp-for="Orders[i].BillingAddresses.Country"></label><br />
+				@Model.Orders[i].BillingAddresses.Country
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].BillingAddresses.City"></label><br />
+				@Model.Orders[i].BillingAddresses.City
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].BillingAddresses.Street"></label><br />
+				@Model.Orders[i].BillingAddresses.Street
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].BillingAddresses.HomeNumber"></label><br/>
+				@Model.Orders[i].BillingAddresses.HomeNumber
+			</div>
+			<div class="col-md-3">
+				<label asp-for="Orders[i].BillingAddresses.Zip"></label><br />
+				@Model.Orders[i].BillingAddresses.Zip
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Payments</h4>
+			</div>
+		</div>
+		for (var j = 0; j < Model.Orders[i].Payments.Count; j++)
+		{
+			<div class="row">
+				<div class="col-md-4">
+					<label asp-for="Orders[i].Payments[j].MethodName"></label><br />
+					@Model.Orders[i].Payments[j].MethodName
+				</div>
+				<div class="col-md-4">
+
+					<label asp-for="Orders[i].Payments[j].Amount"></label><br />
+					@Model.Orders[i].Payments[j].Amount
+				</div>
+			</div>
+		}
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Articles</h4>
+			</div>
+		</div>
+		for (var j = 0; j < Model.Orders[i].Articles.Count; j++)
+		{
+			<div class="row">
+				<div class="col-md-3">
+					<label asp-for="Orders[i].Articles[j].Amount"></label><br />
+					@Model.Orders[i].Articles[j].Amount
+				</div>
+				<div class="col-md-3">
+					<label asp-for="Orders[i].Articles[j].Title"></label><br />
+					@Model.Orders[i].Articles[j].Title
+				</div>
+				<div class="col-md-3">
+					<label asp-for="Orders[i].Articles[j].BrutPrice"></label><br />
+					@Model.Orders[i].Articles[j].BrutPrice
+				</div>
+				<div class="col-md-3">
+					<label asp-for="Orders[i].Articles[j].Nomenclature"></label><br />
+					@Model.Orders[i].Articles[j].Nomenclature
+				</div>
+			</div>
+		}
+	}
+
+	<div class="form-group">
+		<div class="col-md-10">
+			<input type="submit" value="Upload" />
+		</div>
+	</div>
+</form>

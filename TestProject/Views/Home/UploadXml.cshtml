@@ -1,0 +1,20 @@
+﻿@model TestProject.Models.FileUpload
+@{
+	ViewData["Title"] = "UploadXml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
+	<div class="form-group">
+		<div class="col-md-10">
+			<label asp-for="UploadXmlFile" class="control-label"></label>
+			<input asp-for="UploadXmlFile" type="file" class="form-control" style="height:auto" />
+			<span asp-validation-for="UploadXmlFile" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<div class="col-md-10">
+				<input type="submit" value="Upload" />
+			</div>
+		</div>
+	</div>
+</form>
